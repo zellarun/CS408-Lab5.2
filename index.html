@@ -1,108 +1,227 @@
-<!doctype html>
-<html>
+<!--
+  * Author: Zella Running
+  * Description: HTML for wildlife website. Use of audio player, details element, and show/hide button.
+  * Date: 28 September 2025
+-->
 
-<head>
-  <meta charset="utf-8">
-  <title>Hello World!</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="shortcut icon" href="img/favicon.ico">
-</head>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Accessibility assessment</title>
 
-<body>
-  <h1>HTML Rocks!</h1>
-  <p>
-    <button  onclick="helloWorld()">Prints Hello World to the Developer console</button>
-  </p>
-  <hr>
-  <form id="addForm">
-    <label for="num1">Number 1:</label>
-    <input type="number" id="num1" name="num1" required>
-    <br>
-    <label for="num2">Number 2:</label>
-    <input type="number" id="num2" name="num2" required>
-    <br>
-    <button type="submit">Add Numbers</button>
-  </form>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Sonsie+One" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
 
-  <label id="result">Result:</label>
+    <!-- Enable HTML5 elements in very old IE -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
 
-  <hr>
+  <body>
+    <header class="site-header">
+      <h1>Welcome to our wildlife website</h1>
+      <a class="skip-link" href="#main">Skip to main content</a>
+    </header>
 
-  <button id="jokeButton">Get a Random Joke</button>
-  <p id="joke"></p>
+    <nav class="nav" aria-label="Primary">
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Our team</a></li>
+        <li><a href="#">Projects</a></li>
+        <li><a href="#">Blog</a></li>
+      </ul>
 
-  <hr>
-  <button id="jokeButtonTable">Get a  5 Random Jokes</button>
-  <table id="jokeTable"></table>
+      <form class="search" role="search">
+        <label for="q" class="sr-only">Search</label>
+        <input id="q" type="search" name="q" placeholder="Search query" />
+        <input type="submit" value="Go!" />
+      </form>
+    </nav>
 
-  <script type="module" script="js/main.js">
-    import {helloWorld, add, fetchRandomJoke, fetch5RandomJokes} from './js/main.js';
+    <main id="main">
+      <article>
+        <h2>The trouble with Bears</h2>
+        <p class="byline">By Evan Wild</p>
 
-    // This shows how to assign a function to the window object
-    // so that it can be called from the browser console
-    window.helloWorld = helloWorld;
+        <p>
+          Tall, lumbering, angry, dangerous. The real live bears of this world are proud, independent creatures,
+          self-serving and always on the hunt for food. Nothing like the bears you see on TV, like Baloo from
+          renowned documentary, The Jungle Book.
+        </p>
 
-    // This shows how to add an event listener to a button in the HTML
-    // and call a function when the button is clicked
-    const form = document.getElementById('addForm');
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const num1 = parseFloat(document.getElementById('num1').value);
-      const num2 = parseFloat(document.getElementById('num2').value);
-      try{
-        const result = add(num1, num2);
-        document.getElementById('result').textContent = `Result: ${result}`;
-      }catch(e){
-        console.error(e);
-        document.getElementById('result').textContent = `Error: ${e.message}`;
-      }
+        <p>
+          So what are bears really like, and why does the world's media portray them with such a skewed vision?
+          In this article we try to answer those questions, and give you a real insight into the life of the bear.
+        </p>
 
-    });
+        <h3>Types of bear</h3>
 
-    // this shows how to add an event listener to a button in the HTML
-    // that calls a function that fetches a random joke from an API
-    // and displays it on the page
-    const jokebtn = document.getElementById('jokeButton');
-    const jokeresult = document.getElementById('joke');
-    jokebtn.addEventListener('click', async () => {
-      try {
-        jokeresult.textContent = 'Loading...';
-        const joke = await fetchRandomJoke();
-        document.getElementById('joke').textContent = joke;
-      } catch (e) {
-        console.error(e);
-        document.getElementById('joke').textContent = `Error: ${e.message}`;
-      }
-    });
+        <p>
+          Bears come in two varieties — large and medium. You don't get small bears. If you have seen a small bear,
+          then it was in fact probably a baby bear (cub) from another species.
+        </p>
 
-    // this shows how to add an event listener to a button in the HTML
-    // that calls a function that fetches 5 random jokes from an API
-    // and displays them in a table on the page
-    const jokeTableBtn = document.getElementById('jokeButtonTable');
-    const jokeTable = document.getElementById('jokeTable');
-    jokeTableBtn.addEventListener('click', async () => {
-      try {
-        jokeTable.textContent = 'Loading...';
-        const joke = await fetch5RandomJokes();
-        jokeTable.innerHTML = `
-              <thead>
-              <tr>
-                <th>Joke</th>
-              </tr>
-              </thead>
-              <tbody>
-              ${joke.map(j => `<tr><td>${j}</td></tr>`).join('')}
-              </tbody>
-            `;
-      } catch (e) {
-        console.error(e);
-        document.getElementById('joke').textContent = `Error: ${e.message}`;
-      }
-    });
-  </script>
+        <p>
+          Bears can also be classified in terms of their habitat — both large and medium bears are just as at home in
+          urban areas as they are in the countryside. Different habitats encourage different behaviour however, as you'll
+          find out below. The below table also gives you some useful facts about bears.
+        </p>
 
-</body>
+        <table>
+          <caption>Comparison of wild and urban bears</caption>
+          <thead>
+            <tr>
+              <th scope="col">Bear Type</th>
+              <th scope="col">Coat</th>
+              <th scope="col">Adult size</th>
+              <th scope="col">Habitat</th>
+              <th scope="col">Lifespan</th>
+              <th scope="col">Diet</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Wild</td>
+              <td>Brown or black</td>
+              <td>1.4 to 2.8 meters</td>
+              <td>Woods and forests</td>
+              <td>25 to 28 years</td>
+              <td>Fish, meat, plants</td>
+            </tr>
+            <tr>
+              <td>Urban</td>
+              <td>North Face</td>
+              <td>1.8 to 2.2 meters</td>
+              <td>Condos and coffee shops</td>
+              <td>20 to 32 years</td>
+              <td>Starbucks, sushi</td>
+            </tr>
+          </tbody>
+        </table>
 
+        <h3>Habitats and Eating habits</h3>
+
+        <p>
+          Wild bears eat a variety of meat, fish, fruit, nuts, and other naturally growing ingredients. In general they
+          will hunt for food themselves in woodland or rivers, but at a push they will track down their sustenance from
+          farms or country houses. They tend to live in relative isolation, in caves, tents, or cottages.
+        </p>
+
+        <img src="media/wild-bear.jpg" alt="A wild brown bear standing in a river" />
+
+        <p>
+          Urban (gentrified) bears on the other hand have largely abandoned the old ways. They will hunt other urban
+          creatures if necessary (including other predators like rats and foxes), but prefer to scavenge from readily
+          available urban food outlets like dumpsters, bins, and fast food joints. When food has proven scarce, urban
+          bears have even been known to break into people's kitchens and steal essentials like baked beans, ready meals,
+          and microwave ovens.
+        </p>
+
+        <img src="media/urban-bear.jpg" alt="A bear in a barred enclosure in an urban setting" />
+
+        <p>Urban bears will sleep anywhere they can, from bus shelters and parks, to fast-food restrooms, to their own apartment.</p>
+
+        <h3>Mating rituals</h3>
+        <p>
+          The following audio clip contains a fact file providing more details about bear mating rituals,
+          along with samples and quotes from experts.
+        </p>
+
+        <audio controls>
+          <source src="media/bear.mp3" type="audio/mp3" />
+          <source src="media/bear.ogg" type="audio/ogg" />
+          <p>Your browser doesn't support HTML5 audio. <a href="media/bear.mp3">Download the MP3</a>.</p>
+        </audio>
+
+        <details>
+          <summary>Audio transcript</summary>
+          <p>This isn't really an audio fact file about bears. But it is an audio file that you can transcribe.</p>
+        </details>
+
+        <aside aria-labelledby="about-author">
+          <h3 id="about-author">About the author</h3>
+          <p>
+            Evan Wild is an unemployed plumber from Doncaster, who has been really "in to" wildlife since childhood.
+            He once went to Chester Zoo on holiday, but got ill after eating a doner kebab.
+          </p>
+          <p>He has never seen a bear, but once read a Daily Mail article about them, and thinks they sound cool.</p>
+        </aside>
+
+        <section class="comments">
+          <button class="show-hide" type="button" aria-expanded="false" aria-controls="comment-panel">
+            Show comments
+          </button>
+
+          <div id="comment-panel" class="comment-wrapper" hidden>
+            <h3>Add comment</h3>
+
+            <form class="comment-form">
+              <div class="flex-pair">
+                <label for="name">Your name:</label>
+                <input type="text" name="name" id="name" placeholder="Enter your name" />
+              </div>
+              <div class="flex-pair">
+                <label for="comment">Your comment:</label>
+                <input type="text" name="comment" id="comment" placeholder="Enter your comment" />
+              </div>
+              <div>
+                <input type="submit" value="Submit comment" />
+              </div>
+            </form>
+
+            <h3>Comments</h3>
+            <ul class="comment-container">
+              <li>
+                <p>Bob Fossil</p>
+                <p>
+                  Oh I am so glad you taught me all about the big brown angry guys in the woods. With their sniffing
+                  little noses and their bad attitudes, they can sure be a menace — I was thinking of putting them all
+                  in a truck and driving them outta here. I run a zoo, you know.
+                </p>
+              </li>
+            </ul>
+          </div>
+        </section>
+      </article>
+
+      <div class="secondary" aria-labelledby="related-heading">
+        <h2 id="related-heading">Related</h2>
+        <ul>
+          <li><a href="#">The trouble with Bees</a></li>
+          <li><a href="#">The trouble with Otters</a></li>
+          <li><a href="#">The trouble with Penguins</a></li>
+          <li><a href="#">The trouble with Octopi</a></li>
+          <li><a href="#">The trouble with Lemurs</a></li>
+        </ul>
+      </div>
+    </main>
+
+    <footer>
+      <p>©Copyright 2050 by nobody. All rights reversed.</p>
+    </footer>
+
+    <script src="main.js"></script>
+
+    <script>
+      (function () {
+        const btn = document.querySelector(".show-hide");
+        const panel = document.getElementById("comment-panel");
+        if (!btn || !panel) return;
+        btn.addEventListener("click", () => {
+          const hidden = panel.hasAttribute("hidden");
+          if (hidden) {
+            panel.removeAttribute("hidden");
+            btn.setAttribute("aria-expanded", "true");
+            btn.textContent = "Hide comments";
+          } else {
+            panel.setAttribute("hidden", "");
+            btn.setAttribute("aria-expanded", "false");
+            btn.textContent = "Show comments";
+          }
+        });
+      })();
+    </script>
+  </body>
 </html>
